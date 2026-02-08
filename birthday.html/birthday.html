@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Bachha ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #ff758c, #ff7eb3);
+    text-align: center;
+    overflow-x: hidden;
+    color: white;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+}
+@keyframes floatUp {
+    from { transform: translateY(0); }
+    to { transform: translateY(-120vh); opacity: 0; }
+}
+
+h1 {
+    margin: 18px 10px 5px;
+}
+
+#hint {
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+/* Gallery */
+#gallery {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0;
+}
+#gallery img {
+    width: 90px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 3px solid white;
+}
+
+/* Cake */
+#cake {
+    position: relative;
+    margin-top: 25px;
+}
+
+/* Candles */
+#candles {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    z-index: 5;
+}
+.candle {
+    width: 14px;
+    height: 50px;
+    background: repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 5px,
+        #ff7aa2 5px,
+        #ff7aa2 10px
+    );
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+}
+.flame {
+    width: 16px;
+    height: 22px;
+    background: radial-gradient(circle, #ffd700, orange, red);
+    border-radius: 50%;
+    position: absolute;
+    top: -22px;
+    left: -1px;
+    animation: flicker 0.25s infinite;
+}
+@keyframes flicker {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Cake top */
+#cake-top {
+    width: 260px;
+    height: 40px;
+    background: #fff;
+    margin: auto;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+}
+.drip {
+    position: absolute;
+    width: 20px;
+    height: 25px;
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    top: 30px;
+}
+.drip:nth-child(1) { left: 30px; }
+.drip:nth-child(2) { left: 90px; height: 20px; }
+.drip:nth-child(3) { left: 150px; }
+.drip:nth-child(4) { left: 200px; height: 22px; }
+
+/* Cake base split */
+#cake-base {
+    display: flex;
+    width: 260px;
+    margin: auto;
+}
+.slice {
+    width: 130px;
+    height: 120px;
+    background: linear-gradient(#7b3f00, #5a2d0c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: transform 1s ease;
+}
+.slice.left { border-radius: 0 0 0 20px; }
+.slice.right { border-radius: 0 0 20px 0; }
+
+/* Cut animation */
+.cut .left { transform: translateX(-35px); }
+.cut .right { transform: translateX(35px); }
+
+/* Button */
+button {
+    margin-top: 22px;
+    padding: 12px 26px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background: #ff3b6f;
+    color: white;
+}
+
+/* Typed message */
+#message {
+    font-size: 18px;
+    margin: 25px;
+    line-height: 1.6;
+    min-height: 140px;
+    display: none;
+}
+
+/* Final love screen */
+#finalLove {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to bottom, #ff416c, #ff4b2b);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: bold;
+    z-index: 999;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎉 Happy Birthday Komal ❤️</h1>
+<div id="hint">🕯️ Tap the candles to blow them</div>
+
+<div id="gallery">
+    <!-- Replace with your real photos -->
+    <img src="pic1.jpeg">
+    <img src="pic2.jpeg">
+    <img src="pic3.jpeg">
+</div>
+
+<div id="cake">
+    <div id="candles">
+        <div class="candle" onclick="blow(this)"><div class="flame"></div></div>
+        <div class="candle" onclick="blow(this)"><div class="flame"></div></div>
+        <div class="candle" onclick="blow(this)"><div class="flame"></div></div>
+    </div>
+
+    <div id="cake-top">
+        <div class="drip"></div><div class="drip"></div>
+        <div class="drip"></div><div class="drip"></div>
+    </div>
+
+    <div id="cake-base">
+        <div class="slice left">Komal</div>
+        <div class="slice right">20 🎂</div>
+    </div>
+</div>
+
+<button onclick="cutCake()">🔪 Cut the cake</button>
+
+<div id="message"></div>
+
+<!-- FINAL LOVE SCREEN -->
+<div id="finalLove">I LOVE YOU KOMAL ❤️</div>
+
+<script>
+let blown = 0;
+
+/* Start music on first tap (iPhone safe) */
+document.body.addEventListener("click", () => {
+    document.getElementById("bgMusic").play();
+}, { once: true });
+
+function blow(candle) {
+    const flame = candle.querySelector(".flame");
+    if (flame) {
+        flame.remove();
+        blown++;
+    }
+}
+
+function cutCake() {
+    if (blown < 3) {
+        alert("Blow all the candles first 🎂✨");
+        return;
+    }
+    document.getElementById("cake-base").classList.add("cut");
+    typeMessage();
+}
+
+/* Typing effect */
+const text = `My Pillu Komal 💖
+
+You make my world brighter just by being in it.
+Your smile, your kindness, your heart —
+everything about you feels like home.
+
+On your 20th birthday, I just want you to know
+how deeply loved you are.
+Ani Sorry majha mule tu kadhi kadhi chidtes :)
+Pn mla tula kadhi hurt nast kracha 
+And I promise to always be there for you, through every laugh and every tear.
+Finally,
+
+Happy Birthday, my love ❤️`;
+let i = 0;
+
+function typeMessage() {
+    const box = document.getElementById("message");
+    box.style.display = "block";
+    const interval = setInterval(() => {
+        box.innerHTML += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+            clearInterval(interval);
+            setTimeout(showFinalLove, 1500);
+        }
+    }, 40);
+}
+
+/* Final screen */
+function showFinalLove() {
+    document.getElementById("finalLove").style.display = "flex";
+}
+
+/* Floating hearts */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 500);
+</script>
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="backgroundmusicforvideo-happy-birthday-357371 (2).mp3" type="audio/mpeg">
+</audio>
+<script>
+document.body.addEventListener("click", () => {
+    const music = document.getElementById("bgMusic");
+    if (music) music.play();
+}, { once: true });
+</script>
+
+</body>
+</html>
